@@ -3,6 +3,36 @@ function math1 (){
 
 }
 function math2 (){
+       form = document.querySelector('form');
+  const result = document.querySelector('#result');
+  const clearButton = document.querySelector('#clearButton');
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const set1 = new Set(form.querySelector('#set1').value.split(', '));
+    const set2 = new Set(form.querySelector('#set2').value.split(', '));
+    const union = new Set([...set1, ...set2]);
+    const intersection = new Set([...set1].filter(x => set2.has(x)));
+    result.innerHTML = `Unión: ${Array.from(union).join(', ')}<br>Intersección: ${Array.from(intersection).join(', ')}`;
+
+    // Borrar elementos de los circulos
+    const vennUnion = document.querySelector('#venn-union');
+    const vennIntersection = document.querySelector('#venn-intersection');
+
+    vennUnion.textContent = Array.from(union).join(', ');
+    vennIntersection.textContent = Array.from(intersection).join(', ');
+  });
+
+  clearButton.addEventListener('click', () => {
+    result.innerHTML = ''; // Borra el contenido de #result
+
+    // Restaurar el contenido de los círculos del diagrama de Venn
+    const vennUnion = document.querySelector('#venn-union');
+    const vennIntersection = document.querySelector('#venn-intersection');
+
+    vennUnion.textContent = '';
+    vennIntersection.textContent = '';
+  });
     
 }
 function math3 (){
